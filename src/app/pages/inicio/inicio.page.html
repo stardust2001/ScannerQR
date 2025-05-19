@@ -1,13 +1,27 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>inicio</ion-title>
+    <ion-title>Inicio</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content [fullscreen]="true" class="ion-padding">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">inicio</ion-title>
+      <ion-title size="large">Inicio</ion-title>
     </ion-toolbar>
   </ion-header>
+
+  <div class="container">
+    <h1 class="titulo">Bienvidx a <span class="resaltado">Scaneame porfavor</span></h1>
+    
+    <div class="imagen-container">
+      <!-- Puedes cambiar la imagen por la que necesites -->
+      <img src="assets/img/logo.png" alt="Scaneame logo" />
+    </div>
+
+   
+    
+    <ion-button shape="round" routerLink="../escaneo" >hola</ion-button>
+
+  </div>
 </ion-content>

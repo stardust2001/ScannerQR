@@ -3,6 +3,8 @@ import { IonHeader, IonToolbar, IonTitle, IonContent,IonItem, IonLabel, IonList,
 import { Barcode, BarcodeScanner } from '@capacitor-mlkit/barcode-scanning';
 import { AlertController } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
+import { IonicModule } from '@ionic/angular';
+
 
 @Component({
   selector: 'app-home',
