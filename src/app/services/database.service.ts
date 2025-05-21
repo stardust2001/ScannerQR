@@ -1,56 +1,71 @@
 import { Injectable } from '@angular/core';
-import { CapacitorSQLite, SQLiteConnection, SQLiteDBConnection } from '@capacitor-community/sqlite';
+import { SQLite, SQLiteObject } from '@awesome-cordova-plugins/sqlite/ngx';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DatabaseService {
-  private db: SQLiteDBConnection | null = null;
-  private sqliteConnection: SQLiteConnection;
+  private dbInstance: SQLiteObject | null = null;
 
-  constructor() {
-    this.sqliteConnection = new SQLiteConnection(CapacitorSQLite);
-    this.initDB();
+  constructor(private sqlite: SQLite) {
+    this.initializeDatabase();
   }
 
-  async initDB() {
-    const dbName = 'qrdb';
-
+  async initializeDatabase(): Promise<void> {
     try {
-      // 🔑 Parámetros requeridos: database, encrypted, mode, version, readonly
-      this.db = await this.sqliteConnection.createConnection(
-        dbName,         // database name
-        false,          // encrypted
-        'no-encryption',// mode
-        1,              // version
-        false           // readonly
-      );
+      const db = await this.sqlite.create({
+        name: 'users.db',
+        location: 'default'
+      });
 
-      await this.db.open();
+      this.dbInstance = db;
 
-      await this.db.execute(`
+      await db.executeSql(`
         CREATE TABLE IF NOT EXISTS datos (
           id INTEGER PRIMARY KEY,
           nombre TEXT
-        );
-      `);
+        )
+      `, []);
 
-      console.log('✅ Base de datos inicializada correctamente');
+      console.log('Base de datos SQLite inicializada.');
     } catch (error) {
-      console.error('❌ Error al inicializar la base de datos:', error);
+      console.error('Error al inicializar la base de datos:', error);
     }
   }
-  async addDato(id: number, nombre: string) {
-    if (!this.db) return;
-    await this.db.run(
-      `INSERT OR REPLACE INTO datos (id, nombre) VALUES (?, ?)`,
-      [id, nombre]
-    );
+
+  async addDato(id: number, nombre: string): Promise<void> {
+    if (!this.dbInstance) {
+      throw new Error('Base de datos no inicializada.');
+    }
+
+    try {
+      await this.dbInstance.executeSql(
+        'INSERT OR REPLACE INTO datos (id, nombre) VALUES (?, ?)',
+        [id, nombre]
+      );
+      console.log(`Dato guardado: id=${id}, nombre=${nombre}`);
+    } catch (error) {
+      console.error('Error al insertar dato:', error);
+    }
   }
 
   async getDatos(): Promise<{ id: number; nombre: string }[]> {
-    if (!this.db) return [];
-    const res = await this.db.query(`SELECT * FROM datos`);
-    return res.values || [];
+    if (!this.dbInstance) {
+      throw new Error('Base de datos no inicializada.');
+    }
+
+    try {
+      const result = await this.dbInstance.executeSql('SELECT * FROM datos', []);
+      const datos: { id: number; nombre: string }[] = [];
+
+      for (let i = 0; i < result.rows.length; i++) {
+        datos.push(result.rows.item(i));
+      }
+
+      return datos;
+    } catch (error) {
+      console.error('Error al obtener datos:', error);
+      return [];
+    }
   }
 }

@@ -4,12 +4,43 @@
       <ion-title>Menu Content</ion-title>
     </ion-toolbar>
   </ion-header>
+
   <ion-content class="ion-padding">
     <p>This is the menu content.</p>
+   <ion-list>
+      <ion-menu-toggle auto-hide="true">
+        <ion-item routerLink="/inicio" routerDirection="root">
+          <ion-label>Inicio</ion-label>
+        </ion-item>
+      </ion-menu-toggle>
+
+      <ion-menu-toggle auto-hide="true">
+      <ion-item routerLink="/configuracion" routerDirection="forward">
+      <ion-label>configuracion</ion-label>
+      </ion-item>
+      </ion-menu-toggle>
+
+      <ion-menu-toggle auto-hide="true">
+      <ion-item routerLink="/about" routerDirection="forward">
+      <ion-label>About</ion-label>
+      </ion-item>
+      </ion-menu-toggle>
+
+      <ion-menu-toggle auto-hide="true">
+      <ion-item routerLink="/asistencia" routerDirection="forward">
+      <ion-label>Asistencia</ion-label>
+      </ion-item>
+      </ion-menu-toggle>
+
+
+    </ion-list>
   </ion-content>
 </ion-menu>
 
-<!-- Contenido principal -->
+
+
+
+
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-buttons slot="start">
@@ -19,39 +50,50 @@
   </ion-toolbar>
 </ion-header>
 
+
+
+
 <ion-content id="main-content" [fullscreen]="true">
+
+  <!-- Título centrado -->
+  <ion-title class="titulo">PASE DE LISTA</ion-title>
+
   <ion-header collapse="condense">
     <ion-toolbar>
       <ion-title size="large">Escaneo</ion-title>
     </ion-toolbar>
   </ion-header>
 
-  <!-- Aquí va tu contenido -->
+  <!-- Texto inicial -->
   <p class="ion-padding">Aquí va tu página de escaneo.</p>
-<!-- <ion-button expand="full" (click)="scanQr()">Escanear QR</ion-button> -->
- <ion-list>
+
+  <!-- Lista de códigos QR escaneados -->
+  <ion-list>
     <ion-item *ngFor="let barcode of barcodes">
       <ion-label position="stacked">{{ barcode.format }}</ion-label>
       <ion-input type="text" [value]="barcode.rawValue"></ion-input>
     </ion-item>
   </ion-list>
-  
 
-
+  <!-- Botón flotante centrado con imagen -->
   <ion-fab slot="fixed" vertical="center" horizontal="center">
     <ion-fab-button (click)="scan()" [disabled]="!isSupported">
-      <ion-icon name="scan"></ion-icon>
+      <img src="assets/icon/capturar.png" class="custom-icon">
     </ion-fab-button>
   </ion-fab>
 
-<ion-button shape="round" (click)="addUser()">Add</ion-button>
-<ion-list>
-  <ion-item *ngFor="let dato of datosGuardados">
-    <ion-label>
-      <h2>ID: {{ dato.id }}</h2>
-      <p>Nombre: {{ dato.nombre }}</p>
-    </ion-label>
-  </ion-item>
-</ion-list>
+
+  <!-- <ion-button shape="round" (click)="addUser()">Add</ion-button> -->
+
+  <!-- Lista de datos guardados -->
+  <!-- <ion-list>
+    <ion-item *ngFor="let dato of datosGuardados">
+      <ion-label>
+        <h2>ID: {{ dato.id }}</h2>
+        <p>Nombre: {{ dato.nombre }}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list> -->
+  
 
 </ion-content>

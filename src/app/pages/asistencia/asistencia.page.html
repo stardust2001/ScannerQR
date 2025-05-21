@@ -1,0 +1,31 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/escaneo"></ion-back-button>
+    </ion-buttons>
+    <ion-title>asistencia</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">asistencia</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-title class="ion-padding">Datos de Asistencia Registrados</ion-title>
+
+  <ion-list>
+    <ion-item *ngFor="let dato of datosGuardados">
+      <ion-label>
+        <h2>ID: {{ dato.id }}</h2>
+        <p>Nombre: {{ dato.nombre }}</p>
+      </ion-label>
+    </ion-item>
+    <ion-item *ngIf="datosGuardados.length === 0">
+      <ion-label>No hay datos de asistencia registrados aún.</ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>
+
+
