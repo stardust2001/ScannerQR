@@ -15,17 +15,7 @@
   </ion-header>
   <ion-title class="ion-padding">Datos de Asistencia Registrados</ion-title>
 
-  <ion-list>
-    <ion-item *ngFor="let dato of datosGuardados">
-      <ion-label>
-        <h2>ID: {{ dato.id }}</h2>
-        <p>Nombre: {{ dato.nombre }}</p>
-      </ion-label>
-    </ion-item>
-    <ion-item *ngIf="datosGuardados.length === 0">
-      <ion-label>No hay datos de asistencia registrados aún.</ion-label>
-    </ion-item>
-  </ion-list>
+  
 </ion-content>
 
 
