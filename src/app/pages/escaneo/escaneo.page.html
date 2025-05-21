@@ -35,9 +35,23 @@
       <ion-input type="text" [value]="barcode.rawValue"></ion-input>
     </ion-item>
   </ion-list>
+  
+
+
   <ion-fab slot="fixed" vertical="center" horizontal="center">
     <ion-fab-button (click)="scan()" [disabled]="!isSupported">
       <ion-icon name="scan"></ion-icon>
     </ion-fab-button>
   </ion-fab>
+
+<ion-button shape="round" (click)="addUser()">Add</ion-button>
+<ion-list>
+  <ion-item *ngFor="let dato of datosGuardados">
+    <ion-label>
+      <h2>ID: {{ dato.id }}</h2>
+      <p>Nombre: {{ dato.nombre }}</p>
+    </ion-label>
+  </ion-item>
+</ion-list>
+
 </ion-content>
