@@ -5,7 +5,7 @@ import { IonContent, IonHeader, IonTitle, IonToolbar,IonMenu, IonButtons,IonMenu
 import { Barcode, BarcodeScanner } from '@capacitor-mlkit/barcode-scanning';
 import { AlertController } from '@ionic/angular';
 import { IonicModule } from '@ionic/angular';
-import { DatabaseService } from 'src/app/services/database.service';
+
 import { RouterModule } from '@angular/router'; 
 import { IonMenuToggle } from '@ionic/angular/standalone';
 
